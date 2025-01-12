@@ -5,11 +5,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: main
-      resolved-ref: "0755fee84afb836d8b94f26eb3e639f5906d249c"
+      ref: "v1.0.1"
+      resolved-ref: "977ccd1cae9014ed7bde25e4fd430e91d4f5d725"
       url: "https://github.com/arobinson434/android_multicast_lock"
     source: git
-    version: "0.0.1"
+    version: "1.0.1"
   async:
     dependency: transitive
     description:
