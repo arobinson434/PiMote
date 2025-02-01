@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pi_mote/models/emitters_model.dart';
-import 'package:pi_mote/viewmodels/emitters_viewmodel.dart';
 import 'package:pi_mote/views/emitters_listview.dart';
-
-import 'package:android_multicast_lock/android_multicast_lock.dart';
+import 'package:pi_mote/screens/scan.dart';
 
 class PiMoteHomePage extends StatefulWidget {
   const PiMoteHomePage({super.key});
@@ -13,20 +11,6 @@ class PiMoteHomePage extends StatefulWidget {
 }
 
 class _PiMoteHomePageState extends State<PiMoteHomePage> {
-  final EmittersViewModel viewmodel = EmittersViewModel();
-
-  @override
-  void initState() {
-    super.initState();
-    AndroidMulticastLock().acquire();
-  }
-
-  @override
-  void dispose() {
-    AndroidMulticastLock().release();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +19,13 @@ class _PiMoteHomePageState extends State<PiMoteHomePage> {
         title: Text("PiMote"),
       ),
       body: Center(
-        child: EmittersListView(viewmodel: viewmodel)
-      )
+        child: EmittersListView(detailed: true)
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => scanForDevices(context),
+        tooltip: 'Refresh',
+        child: const Icon(Icons.refresh),
+      ),
     );
   }
 }
