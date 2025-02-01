@@ -3,11 +3,11 @@ import 'package:flutter/foundation.dart';
 import 'package:pi_mote/models/emitters_model.dart';
 
 class EmittersViewModel extends ChangeNotifier {
-  final EmittersModel model    = EmittersModel();
+  final EmittersModel _model   = EmittersModel();
   final Emitters      emitters = {};
 
   EmittersViewModel() {
-    model.getEventStream().listen(processEmittingEntity);
+    _model.getEventStream().listen(processEmittingEntity);
   }
 
   void processEmittingEntity(EmittingEntity entity) {

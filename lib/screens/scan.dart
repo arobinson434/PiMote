@@ -8,32 +8,32 @@ Future<void> scanForDevices(BuildContext context) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
-      return DeviceScanner(context: context);
+      return _DeviceScanner(context: context);
     }
   );
 }
 
-class DeviceScanner extends StatefulWidget {
+class _DeviceScanner extends StatefulWidget {
   final BuildContext context;
-  const DeviceScanner({super.key, required BuildContext this.context});
+  const _DeviceScanner({super.key, required BuildContext this.context});
 
   @override
-  State<DeviceScanner> createState() => _DeviceScannerState();
+  State<_DeviceScanner> createState() => _DeviceScannerState();
 }
 
-class _DeviceScannerState extends State<DeviceScanner> {
-  Timer? _t;
-  int timeout = 5; // Will last 6 seconds as 0 is included;
+class _DeviceScannerState extends State<_DeviceScanner> {
+  Timer? _timer;
+  int _timeout = 5; // Will last 6 seconds as 0 is included;
 
   @override
   void initState() {
     super.initState();
-    _t = Timer.periodic(Duration(seconds: 1), (timer) {
-      if ( timeout < 1 ) {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if ( _timeout < 1 ) {
         pop();
       } else {
         setState(() {
-          timeout--;
+          _timeout--;
         });
       }
     });
@@ -44,7 +44,7 @@ class _DeviceScannerState extends State<DeviceScanner> {
   @override
   void dispose() {
     AndroidMulticastLock().release();
-    _t?.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -59,7 +59,7 @@ class _DeviceScannerState extends State<DeviceScanner> {
         child: EmittersListView()
       ),
       actions: <Widget>[
-        Text( 'Remaining: $timeout  '), 
+        Text( 'Remaining: $_timeout  '), 
         TextButton(
           child: const Text('Cancel'),
           onPressed: () {

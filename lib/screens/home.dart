@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pi_mote/models/emitters_model.dart';
+
 import 'package:pi_mote/views/emitters_listview.dart';
 import 'package:pi_mote/screens/scan.dart';
 
-class PiMoteHomePage extends StatefulWidget {
+class PiMoteHomePage extends StatelessWidget {
   const PiMoteHomePage({super.key});
 
-  @override
-  State<PiMoteHomePage> createState() => _PiMoteHomePageState();
-}
-
-class _PiMoteHomePageState extends State<PiMoteHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
