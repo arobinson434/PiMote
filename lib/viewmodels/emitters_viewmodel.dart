@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+
 import 'package:pi_mote/models/emitters_model.dart';
 
 class EmittersViewModel extends ChangeNotifier {

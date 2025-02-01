@@ -39,6 +39,7 @@ dependencies:
     git:
         url: https://github.com/arobinson434/android_multicast_lock
         ref: v1.0.1
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
