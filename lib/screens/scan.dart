@@ -22,33 +22,17 @@ class _DeviceScanner extends StatefulWidget {
 }
 
 class _DeviceScannerState extends State<_DeviceScanner> {
-  Timer? _timer;
-  int _timeout = 5; // Will last 6 seconds as 0 is included;
-
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      if ( _timeout < 1 ) {
-        pop();
-      } else {
-        setState(() {
-          _timeout--;
-        });
-      }
-    });
-
     AndroidMulticastLock().acquire();
   }
 
   @override
   void dispose() {
     AndroidMulticastLock().release();
-    _timer?.cancel();
     super.dispose();
   }
-
-  void pop() { Navigator.of(widget.context).pop(); }
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +40,13 @@ class _DeviceScannerState extends State<_DeviceScanner> {
       title: const Text('Scanning...'),
       content: Container(
         width: double.maxFinite,
-        child: EmittersListView()
+        child: EmittersListView(detailed: true)
       ),
       actions: <Widget>[
-        Text( 'Remaining: $_timeout  '), 
         TextButton(
-          child: const Text('Cancel'),
+          child: const Icon(Icons.close),
           onPressed: () {
-            pop();
+            Navigator.of(context).pop();
           },
         ),
       ],

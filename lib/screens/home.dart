@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:pi_mote/views/emitters_listview.dart';
+import 'package:pi_mote/viewmodels/emitters_viewmodel.dart';
 import 'package:pi_mote/screens/scan.dart';
 
 class PiMoteHomePage extends StatelessWidget {
@@ -14,12 +15,14 @@ class PiMoteHomePage extends StatelessWidget {
         title: Text("PiMote"),
       ),
       body: Center(
-        child: EmittersListView(detailed: true)
+        child: Text(
+          Provider.of<EmittersViewModel>(context).currentEmitter() ?? "None"
+        )
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => scanForDevices(context),
-        tooltip: 'Refresh',
-        child: const Icon(Icons.refresh),
+        tooltip: 'IR Device',
+        child: const Icon(Icons.wifi),
       ),
     );
   }

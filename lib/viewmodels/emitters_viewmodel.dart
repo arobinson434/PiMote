@@ -5,6 +5,7 @@ import 'package:pi_mote/models/emitters_model.dart';
 class EmittersViewModel extends ChangeNotifier {
   final EmittersModel _model   = EmittersModel();
   final Emitters      emitters = {};
+  String?             _current;
 
   EmittersViewModel() {
     _model.getEventStream().listen(processEmittingEntity);
@@ -20,5 +21,12 @@ class EmittersViewModel extends ChangeNotifier {
       emitters[entity.name]?.last_reported = entity.data.last_reported;
       notifyListeners();
     } 
+  }
+
+  String? currentEmitter() => _current;
+
+  void setCurrentEmitter(String? value) {
+    _current = value;
+    notifyListeners();
   }
 }

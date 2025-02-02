@@ -38,7 +38,13 @@ class EmitterView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        leading: Icon(Icons.circle, color: Colors.green),
+        leading: Radio<String>(
+          value: name,
+          groupValue: Provider.of<EmittersViewModel>(context,listen:false).currentEmitter(),
+          onChanged: (String? value) {
+            Provider.of<EmittersViewModel>(context,listen:false).setCurrentEmitter(value);
+          }
+        ),
         title: Text(name),
         subtitle: showDetails ?
           Text('Description: ${data?.description}\nIP: ${data?.ip_addr}') :
