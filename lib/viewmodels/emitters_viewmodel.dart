@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:pi_mote/models/emitters_model.dart';
 
 class EmittersViewModel extends ChangeNotifier {
-  final EmittersModel _model   = EmittersModel();
-  final Emitters      emitters = {};
+  final EmittersModel _model    = EmittersModel();
+  final Emitters      _emitters = {};
   String?             _current;
 
   EmittersViewModel() {
@@ -12,16 +12,11 @@ class EmittersViewModel extends ChangeNotifier {
   }
 
   void processEmittingEntity(EmittingEntity entity) {
-    if ( !emitters.containsKey(entity.name) ) {
-      emitters[entity.name] = entity.data;
-      notifyListeners();
-    } else {
-      if ( emitters[entity.name]?.ip_addr != entity.data.ip_addr )
-        emitters[entity.name]?.ip_addr = entity.data.ip_addr;
-      emitters[entity.name]?.last_reported = entity.data.last_reported;
-      notifyListeners();
-    } 
+    _emitters[entity.name] = entity.data;
+    notifyListeners();
   }
+
+  Emitters get emitters => Map.unmodifiable(_emitters);
 
   String? currentEmitter() => _current;
 

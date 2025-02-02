@@ -17,8 +17,30 @@ class PiMoteHomePage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Expanded(
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 10,
+                  children: [
+                    FilledButton(
+                      onPressed: () {},
+                      child: Icon(Icons.power_settings_new),
+                    ),
+                    FilledButton(
+                      onPressed: () {},
+                      child: Icon(Icons.add)
+                    ),
+                    FilledButton(
+                      onPressed: () {},
+                      child: Icon(Icons.remove)
+                    ),
+                  ]
+                )
+              )
+            ),
             Text.rich(TextSpan(
               children: [
                 TextSpan(
@@ -36,14 +58,12 @@ class PiMoteHomePage extends StatelessWidget {
       ),
       floatingActionButton: Row( 
         mainAxisAlignment: MainAxisAlignment.end,
+        spacing: 8,
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: FloatingActionButton(
-              onPressed: () {} , // TODO: Use this to flip into edit mode
-              tooltip: 'Edit',
-              child: const Icon(Icons.edit),
-            ),
+          FloatingActionButton(
+            onPressed: () {} , // TODO: Use this to flip into edit mode
+            tooltip: 'Edit',
+            child: const Icon(Icons.edit),
           ),
           FloatingActionButton(
             onPressed: () => scanForDevices(context),
