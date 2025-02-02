@@ -14,15 +14,43 @@ class PiMoteHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("PiMote"),
       ),
-      body: Center(
-        child: Text(
-          Provider.of<EmittersViewModel>(context).currentEmitter() ?? "None"
-        )
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text.rich(TextSpan(
+              children: [
+                TextSpan(
+                  text: "Device: ",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                TextSpan(
+                  text: Provider.of<EmittersViewModel>(context).currentEmitter() ?? "None",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ]
+            ))
+          ]
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => scanForDevices(context),
-        tooltip: 'IR Device',
-        child: const Icon(Icons.wifi),
+      floatingActionButton: Row( 
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            child: FloatingActionButton(
+              onPressed: () {} , // TODO: Use this to flip into edit mode
+              tooltip: 'Edit',
+              child: const Icon(Icons.edit),
+            ),
+          ),
+          FloatingActionButton(
+            onPressed: () => scanForDevices(context),
+            tooltip: 'IR Device',
+            child: const Icon(Icons.wifi),
+          )
+        ],
       ),
     );
   }
