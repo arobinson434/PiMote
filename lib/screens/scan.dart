@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:android_multicast_lock/android_multicast_lock.dart';
 
-import 'package:pi_mote/views/emitters_listview.dart';
+import 'package:pi_mote/views/devices_listview.dart';
 
 Future<void> scanForDevices(BuildContext context) {
   return showDialog<void>(
@@ -40,7 +40,7 @@ class _DeviceScannerState extends State<_DeviceScanner> {
       title: const Text('Scanning...'),
       content: Container(
         width: double.maxFinite,
-        child: EmittersListView(detailed: true)
+        child: DevicesListView(detailed: true)
       ),
       actions: <Widget>[
         TextButton(
