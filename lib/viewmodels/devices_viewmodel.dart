@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:pi_mote/models/devices_model.dart';
 
 class DevicesViewModel extends ChangeNotifier {
-  final DevicesModel _model    = DevicesModel();
+  final DevicesModel _model   = DevicesModel();
   final Devices      _devices = {};
-  String?             _current;
+  String?            _current;
 
   DevicesViewModel() {
     _model.getEventStream().listen(processEmittingEntity);
