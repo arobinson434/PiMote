@@ -28,7 +28,7 @@ class DevicesListView extends StatelessWidget {
 
 class DeviceView extends StatelessWidget {
   final String       name;
-  final DeviceData? data;
+  final DeviceData?  data;
   final bool         showDetails;
 
   DeviceView({super.key, required this.name, 

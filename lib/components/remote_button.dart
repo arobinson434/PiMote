@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
-import 'package:pi_mote/screens/edit_button.dart';
+import 'package:pi_mote/screens/button_edit.dart';
 
 class RemoteButton extends StatelessWidget {
   final String name;
@@ -14,11 +14,11 @@ class RemoteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Provider.of<CmdMgrViewModel>(context).learningEnabled ?
       OutlinedButton(
-        onPressed: () => launchButtonEditor(context),
+        onPressed: () => launchButtonEditor(context, name),
         child: child
       ):
       FilledButton(
-        onPressed: Provider.of<CmdMgrViewModel>(context).commandAvailable(name) ?
+        onPressed: Provider.of<CmdMgrViewModel>(context).commandKnown(name) ?
         () {
             Provider.of<CmdMgrViewModel>(context, listen: false).sendCommand(name);
         } : null,

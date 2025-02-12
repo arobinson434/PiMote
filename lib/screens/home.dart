@@ -20,15 +20,15 @@ class PiMoteHomePage extends StatelessWidget {
 
       body: RemotePane( children: [
         RemoteButton(
-          name: "power",
+          name: "Power",
           child: Icon(Icons.power_settings_new),
         ),
         RemoteButton(
-          name: "add",
+          name: "Plus",
           child: Icon(Icons.add),
         ),
         RemoteButton(
-          name: "remove",
+          name: "Minus",
           child: Icon(Icons.remove),
         ),
       ]),
