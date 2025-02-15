@@ -11,6 +11,9 @@ class CmdMgrViewModel extends ChangeNotifier {
   final CmdMgrModel _model    = CmdMgrModel();
   final Commands    _commands = Commands();
 
+  bool _listening = false;
+  bool get listening => _listening;
+
   IrCommand? _pendingCommand;
   IrCommand? get pendingCommand => _pendingCommand;
 
@@ -31,8 +34,9 @@ class CmdMgrViewModel extends ChangeNotifier {
   }
 
   Future<void> listenForCommand() async {
+    _listening      = true;
     _pendingCommand = null;
-    _commandFuture = CancelableOperation.fromFuture(
+    _commandFuture  = CancelableOperation.fromFuture(
       _model.getCommand()
     );
 
@@ -40,16 +44,18 @@ class CmdMgrViewModel extends ChangeNotifier {
 
     if ( result != null ) {
       _pendingCommand = result!;
-      notifyListeners();
     }
+    _listening = false;
+
+    notifyListeners();
   }
 
   void stopListening() {
     _commandFuture?.cancel();
   }
 
-  void saveCommandAs(IrCommand cmd, String name) {
-    _commands[name] = cmd;
+  void savePendingCommandAs(String name) {
+    _commands[name] = _pendingCommand!;
   }
 
   Future<void> sendCommand(String name) {

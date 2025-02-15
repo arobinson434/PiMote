@@ -24,22 +24,38 @@ class _ButtonEditor extends StatefulWidget {
 }
 
 class _ButtonEditorState extends State<_ButtonEditor> {
-
   @override
   Widget build(BuildContext context) {
+    Provider.of<CmdMgrViewModel>(context, listen: false).listenForCommand();
+
     return AlertDialog(
       title: Text("Edit: " + widget.name),
       content: Container(
         width: double.maxFinite,
         child: Consumer<CmdMgrViewModel>(
           builder: (context, vmodel, child) {
-            return vmodel.pendingCommand == null ?
+            return vmodel.listening ?
               Text("Listening...") :
-              Text("Recieved command from: ${vmodel.pendingCommand?.name}");
+              vmodel.pendingCommand == null ?
+                Text("Command not recieved") :
+                Text("Recieved command from: ${vmodel.pendingCommand?.name}");
           }
         ),
       ),
       actions: <Widget>[
+        Consumer<CmdMgrViewModel>(
+          builder: (context, vmodel, child) {
+            return TextButton(
+              child: const Icon(Icons.save),
+              onPressed: vmodel.pendingCommand != null ?
+                () {
+                  vmodel.savePendingCommandAs(widget.name);
+                  Navigator.of(context).pop();
+                } :
+                null
+            );
+          }
+        ),
         TextButton(
           child: const Icon(Icons.close),
           onPressed: () {
