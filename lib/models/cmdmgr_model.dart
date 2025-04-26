@@ -13,7 +13,8 @@ class CmdMgrModel {
   Future<IrCommand?> getCommand() async {
     IrCommand? command;
 
-    final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, CMD_RCV_PORT);
+    final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4,
+                                                CMD_RCV_PORT, reusePort: true);
     socket.joinMulticast(CMD_RCV_ADDR);
 
     AndroidMulticastLock().acquire();
@@ -42,7 +43,8 @@ class CmdMgrModel {
   }
 
   Future<void> sendCommand(IrCommand command) async {
-    final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, CMD_SND_PORT);
+    final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4,
+                                                CMD_SND_PORT, reusePort: true);
 
     socket.listen(
       (RawSocketEvent e){

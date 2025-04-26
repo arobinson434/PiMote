@@ -22,7 +22,8 @@ class DeviceData {
 
 class DevicesModel {
   Stream<EmittingEntity> getEventStream() async* {
-    final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, DISCOVERY_PORT);
+    final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4,
+                                                DISCOVERY_PORT, reusePort: true);
     socket.joinMulticast(DISCOVERY_ADDR);
 
     await for (final event in socket) {
