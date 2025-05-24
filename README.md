@@ -1,16 +1,17 @@
-# pi_mote
+# WIP: pi_mote
+An IR Remote control application written with Flutter.
 
-A new Flutter project.
+This app is intended to interact with a Raspberry Pi over Wi-Fi. Head on over to
+my [PiIrRelay](https://github.com/arobinson434/PiIrRelay) project to read about
+setting up that side of things.
 
-## Getting Started
+## Status
+This project is very much under construction.
 
-This project is a starting point for a Flutter application.
+It presently has a single remote  screen with three programmable buttons.
 
-A few resources to get you started if this is your first Flutter project:
+Presently, I am working to add persistence to these buttons. Then, I will
+build out a larger, full remote, and will then start to look at adding support
+for multiple remotes.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Stay tuned!
