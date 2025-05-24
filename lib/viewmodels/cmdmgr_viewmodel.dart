@@ -40,13 +40,9 @@ class CmdMgrViewModel extends ChangeNotifier {
       _model.getCommand()
     );
 
-    IrCommand? result = await _commandFuture?.valueOrCancellation();
+    _pendingCommand = await _commandFuture?.valueOrCancellation();
 
-    if ( result != null ) {
-      _pendingCommand = result!;
-    }
     _listening = false;
-
     notifyListeners();
   }
 
@@ -56,6 +52,7 @@ class CmdMgrViewModel extends ChangeNotifier {
 
   void savePendingCommandAs(String name) {
     _commands[name] = _pendingCommand!;
+    notifyListeners();
   }
 
   Future<void> sendCommand(String name) {
