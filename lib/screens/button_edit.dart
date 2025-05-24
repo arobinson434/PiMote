@@ -40,23 +40,37 @@ class _ButtonEditor extends StatelessWidget {
       actions: <Widget>[
         Consumer<CmdMgrViewModel>(
           builder: (context, vmodel, child) {
-            return TextButton(
-              child: const Icon(Icons.save),
-              onPressed: vmodel.pendingCommand != null ?
-                () {
-                  vmodel.savePendingCommandAs(name);
-                  Navigator.of(context).pop();
-                } :
-                null
+            return Row (
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton (
+                  child: const Icon(Icons.delete),
+                  onPressed: vmodel.commandKnown(name) ?
+                    () {
+                      vmodel.removeCommand(name);
+                      Navigator.of(context).pop();
+                    } :
+                    null
+                ),
+                TextButton(
+                  child: const Icon(Icons.save),
+                  onPressed: vmodel.pendingCommand != null ?
+                    () {
+                      vmodel.savePendingCommandAs(name);
+                      Navigator.of(context).pop();
+                    } :
+                    null
+                ),
+                TextButton(
+                  child: const Icon(Icons.close),
+                  onPressed: () {
+                    vmodel.stopListening();
+                    Navigator.of(context).pop();
+                  }
+                )
+              ]
             );
           }
-        ),
-        TextButton(
-          child: const Icon(Icons.close),
-          onPressed: () {
-            Provider.of<CmdMgrViewModel>(context, listen: false).stopListening();
-            Navigator.of(context).pop();
-          },
         ),
       ],
     );

@@ -55,6 +55,11 @@ class CmdMgrViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void removeCommand(String name) {
+    _commands.remove(name);
+    notifyListeners();
+  }
+
   Future<void> sendCommand(String name) {
     return _model.sendCommand( _commands[name]! );
   }
