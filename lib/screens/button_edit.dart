@@ -15,21 +15,16 @@ Future<void> launchButtonEditor(BuildContext context, String button_name) {
   );
 }
 
-class _ButtonEditor extends StatefulWidget {
+class _ButtonEditor extends StatelessWidget {
   final String name;
   const _ButtonEditor({super.key, required String this.name});
 
-  @override
-  State<_ButtonEditor> createState() => _ButtonEditorState();
-}
-
-class _ButtonEditorState extends State<_ButtonEditor> {
   @override
   Widget build(BuildContext context) {
     Provider.of<CmdMgrViewModel>(context, listen: false).listenForCommand();
 
     return AlertDialog(
-      title: Text("Edit: " + widget.name),
+      title: Text("Edit: " + name),
       content: Container(
         width: double.maxFinite,
         child: Consumer<CmdMgrViewModel>(
@@ -49,7 +44,7 @@ class _ButtonEditorState extends State<_ButtonEditor> {
               child: const Icon(Icons.save),
               onPressed: vmodel.pendingCommand != null ?
                 () {
-                  vmodel.savePendingCommandAs(widget.name);
+                  vmodel.savePendingCommandAs(name);
                   Navigator.of(context).pop();
                 } :
                 null
