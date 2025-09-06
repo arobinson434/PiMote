@@ -9,7 +9,7 @@ class PiMoteApp extends StatelessWidget {
     return MaterialApp(
       title: 'PiMote',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple.shade900),
         useMaterial3: true,
       ),
       home: const PiMoteHomePage(),
