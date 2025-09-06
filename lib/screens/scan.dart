@@ -8,30 +8,22 @@ Future<void> scanForDevices(BuildContext context) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
-      return _DeviceScanner(context: context);
+      return _DeviceScanner();
     }
   );
 }
 
-class _DeviceScanner extends StatefulWidget {
-  final BuildContext context;
-  const _DeviceScanner({super.key, required BuildContext this.context});
+class _DeviceScanner extends StatelessWidget {
+  const _DeviceScanner({super.key});
 
-  @override
-  State<_DeviceScanner> createState() => _DeviceScannerState();
-}
-
-class _DeviceScannerState extends State<_DeviceScanner> {
   @override
   void initState() {
-    super.initState();
     AndroidMulticastLock().acquire();
   }
 
   @override
   void dispose() {
     AndroidMulticastLock().release();
-    super.dispose();
   }
 
   @override

@@ -13,24 +13,26 @@ class RemoteButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider.of<CmdMgrViewModel>(context).learningEnabled ?
+      // Learning Mode
       Provider.of<CmdMgrViewModel>(context).commandKnown(name) ?
-        FilledButton.tonal( // Learning Mode; Known Command
+        FilledButton.tonal( // Known Command
           onPressed: () => launchButtonEditor(context, name),
           child: child
         )
         :
-        OutlinedButton( // Learning Mode; No Known Command
+        OutlinedButton( // No Known Command
           onPressed: () => launchButtonEditor(context, name),
           child: child
         )
       :
+      // Not Learning Mode
       FilledButton(
         onPressed: Provider.of<CmdMgrViewModel>(context).commandKnown(name) ?
-          () { // Not Learning; Known Command
+          () { // Known Command
               Provider.of<CmdMgrViewModel>(context, listen: false).sendCommand(name);
           }
           :
-          null, // Not Learning; No Known Command
+          null, // No Known Command
         child: child
       );
   }
