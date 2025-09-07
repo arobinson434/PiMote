@@ -6,6 +6,7 @@ import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
 import 'package:pi_mote/screens/scan.dart';
 import 'package:pi_mote/components/remote_button.dart';
 import 'package:pi_mote/components/remote_pane.dart';
+import 'package:pi_mote/components/remote_drawer.dart';
 
 class PiMoteHomePage extends StatelessWidget {
   const PiMoteHomePage({super.key});
@@ -54,6 +55,7 @@ class PiMoteHomePage extends StatelessWidget {
         ],
       ),
 
+      drawer: RemoteDrawer(),
     );
   }
 }
