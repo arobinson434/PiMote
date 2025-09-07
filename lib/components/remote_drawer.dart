@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pi_mote/viewmodels/remotes_viewmodel.dart';
+import 'package:pi_mote/screens/new_remote.dart';
 
 class RemoteDrawer extends StatelessWidget {
   const RemoteDrawer({super.key});
@@ -28,7 +29,7 @@ class RemoteDrawer extends StatelessWidget {
                   itemBuilder: (context, idx) {
                     return ListTile(
                       leading: const Icon(Icons.settings_remote),
-                      title: Text(vmodel.remotes[idx]),
+                      title: Text(vmodel.remotes[idx].name),
                       onTap: () => print('should reload main widget with new remote')
                     );
                   }
@@ -41,7 +42,8 @@ class RemoteDrawer extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.add),
               title: const Text('New Remote', style:TextStyle(fontWeight: FontWeight.bold)),
-              onTap: () => Provider.of<RemotesViewModel>(context, listen: false).newRemote()
+              //onTap: () => Provider.of<RemotesViewModel>(context, listen: false).newRemote()
+              onTap: () => addRemote(context)
             )
           ),
         ]
