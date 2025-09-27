@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'package:pi_mote/viewmodels/remotes_viewmodel.dart';
 import 'package:pi_mote/screens/new_remote.dart';
+import 'package:pi_mote/storage/hive_boxes.dart';
+import 'package:pi_mote/storage/remote_data.dart';
 
 class RemoteDrawer extends StatelessWidget {
   const RemoteDrawer({super.key});
@@ -22,19 +24,20 @@ class RemoteDrawer extends StatelessWidget {
           ),
 
           Expanded(
-            child: Consumer<RemotesViewModel> (
-              builder: (context, vmodel, child) {
-                return ListView.builder(
-                  itemCount: vmodel.remotes.length,
-                  itemBuilder: (context, idx) {
-                    return ListTile(
-                      leading: const Icon(Icons.settings_remote),
-                      title: Text(vmodel.remotes[idx].name),
-                      onTap: () => print('should reload main widget with new remote')
-                    );
-                  }
-                );
-              }
+            child: ValueListenableBuilder<Box<RemoteData>> (
+              valueListenable: Hive.box<RemoteData>(remotes_box_id).listenable(),
+              builder: (BuildContext context, Box<RemoteData> box, Widget? _) =>
+                box.isEmpty ?
+                  Text("No Remotes") :
+                  ListView.builder(
+                    itemCount: box.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                      ListTile(
+                        leading: const Icon(Icons.settings_remote),
+                        title: Text(box.getAt(index)!.name),
+                        onTap: () => print('should reload main widget with new remote')
+                      )
+                  )
             )
           ),
 
@@ -42,7 +45,6 @@ class RemoteDrawer extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.add),
               title: const Text('New Remote', style:TextStyle(fontWeight: FontWeight.bold)),
-              //onTap: () => Provider.of<RemotesViewModel>(context, listen: false).newRemote()
               onTap: () => addRemote(context)
             )
           ),

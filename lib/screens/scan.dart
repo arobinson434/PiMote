@@ -13,9 +13,14 @@ Future<void> scanForDevices(BuildContext context) {
   );
 }
 
-class _DeviceScanner extends StatelessWidget {
+class _DeviceScanner extends StatefulWidget {
   const _DeviceScanner({super.key});
 
+  @override
+  State<_DeviceScanner> createState() => _DeviceScannerState();
+}
+
+class _DeviceScannerState extends State<_DeviceScanner> {
   @override
   void initState() {
     AndroidMulticastLock().acquire();
