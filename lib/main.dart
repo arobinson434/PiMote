@@ -7,7 +7,6 @@ import 'package:pi_mote/app_state.dart';
 import 'package:pi_mote/storage/hive/hive_registrar.g.dart';
 import 'package:pi_mote/storage/hive_boxes.dart';
 import 'package:pi_mote/storage/remote_data.dart';
-import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -17,7 +16,6 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => CmdMgrViewModel() ),
         ChangeNotifierProvider(create: (context) => PiMoteAppState() ),
       ],
       child: const PiMoteApp(),

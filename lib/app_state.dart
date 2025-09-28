@@ -1,15 +1,26 @@
 import 'package:flutter/foundation.dart';
 
-class PiMoteAppState extends ChangeNotifier {
-  String? _current_device;
-  bool    _learning_mode = false;
+import 'package:pi_mote/storage/remote_data.dart';
 
-  String? get currentDevice => _current_device;
-  bool    get learningMode  => _learning_mode;
+class PiMoteAppState extends ChangeNotifier {
+  String?     _current_device;
+  RemoteData? _current_remote;
+  bool        _learning_mode = false;
+
+  String?     get currentDevice => _current_device;
+  RemoteData? get currentRemote => _current_remote;
+  bool        get learningMode  => _learning_mode;
 
   set currentDevice(String? value) {
     if ( _current_device != value ) {
       _current_device = value;
+      notifyListeners();
+    }
+  }
+
+  set currentRemote(RemoteData? value) {
+    if ( value?.key != _current_remote?.key ) {
+      _current_remote = value;
       notifyListeners();
     }
   }

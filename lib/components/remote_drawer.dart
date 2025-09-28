@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'package:pi_mote/app_state.dart';
 import 'package:pi_mote/screens/new_remote.dart';
 import 'package:pi_mote/storage/hive_boxes.dart';
 import 'package:pi_mote/storage/remote_data.dart';
@@ -35,7 +36,9 @@ class RemoteDrawer extends StatelessWidget {
                       ListTile(
                         leading: const Icon(Icons.settings_remote),
                         title: Text(box.getAt(index)!.name),
-                        onTap: () => print('should reload main widget with new remote')
+                        onTap: () {
+                          Provider.of<PiMoteAppState>(context, listen: false).currentRemote = box.getAt(index);
+                        }
                       )
                   )
             )

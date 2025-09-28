@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 
 import 'package:pi_mote/app_state.dart';
 import 'package:pi_mote/components/remote_button.dart';
-import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
+import 'package:pi_mote/storage/remote_data.dart';
 
 class RemotePane extends StatelessWidget {
-  final List<RemoteButton> children;
+  final RemoteData? remote;
 
-  RemotePane({super.key, required this.children});
+  RemotePane({super.key, required this.remote});
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +17,26 @@ class RemotePane extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Center(
+            child: Text(
+              "Remote: ${remote?.name ?? 'Not Selected'}",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)
+            )
+          ),
           Expanded(
             child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 10,
-                children: children, // <-- Parent's buttons
-              )
+              //child: ButtonMatrix(remote?.buttons)
+              child: null
+              //child: Text("Remote: ${remote?.name ?? 'Not Selected'}")
+              //child: Row(
+              //  mainAxisAlignment: MainAxisAlignment.center,
+              //  spacing: 10,
+              //  children: children, // <-- Parent's buttons
+              //)
             )
           ),
           Text(
-            Provider.of<CmdMgrViewModel>(context).learningEnabled ?
+            Provider.of<PiMoteAppState>(context).learningMode ?
               "Edit Mode Active" : "",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)
           ),
