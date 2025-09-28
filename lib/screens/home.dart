@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:pi_mote/viewmodels/devices_viewmodel.dart';
 import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
 import 'package:pi_mote/screens/scan.dart';
 import 'package:pi_mote/components/remote_button.dart';

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:android_multicast_lock/android_multicast_lock.dart';
 
 import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
-import 'package:pi_mote/views/devices_listview.dart';
 
 Future<void> launchButtonEditor(BuildContext context, String button_name) {
   return showDialog<void>(

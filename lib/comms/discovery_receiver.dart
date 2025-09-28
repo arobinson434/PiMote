@@ -1,27 +1,27 @@
 import 'dart:io';
+import 'package:android_multicast_lock/android_multicast_lock.dart';
 
 import 'package:pi_mote/messages/presence_notification.pb.dart';
 
 final InternetAddress DISCOVERY_ADDR = InternetAddress("225.1.2.3");
 const int             DISCOVERY_PORT = 5000;
 
-typedef Devices = Map<String, DeviceData>;
-
-typedef EmittingEntity =({
-  String     name,
-  DeviceData data
+typedef DeviceInfo = ({
+  String   name,
+  String   description,
+  String   ip_addr,
 });
 
-class DeviceData {
-  String   description;
-  String   ip_addr;
-  DateTime last_reported;
+class DiscoveryReceiver {
+  void init() {
+    AndroidMulticastLock().acquire();
+  }
 
-  DeviceData(this.description, this.ip_addr, this.last_reported);
-}
+  void dispose() {
+    AndroidMulticastLock().release();
+  }
 
-class DevicesModel {
-  Stream<EmittingEntity> getEventStream() async* {
+  Stream<DeviceInfo> getEventStream() async* {
     final socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4,
                                                 DISCOVERY_PORT, reusePort: true);
     socket.joinMulticast(DISCOVERY_ADDR);
@@ -31,9 +31,11 @@ class DevicesModel {
       if (d == null) continue;
 
       PresenceNotification pn = PresenceNotification.fromBuffer(d.data);
-      yield ( name: pn.name,
-              data: DeviceData(pn.description, d.address.address, DateTime.now())
-            );
+      yield (
+        name:          pn.name,
+        description:   pn.description, 
+        ip_addr:       d.address.address
+      );
     }
   }
 }

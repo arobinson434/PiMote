@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:pi_mote/app_state.dart';
 import 'package:pi_mote/components/remote_button.dart';
 import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
-import 'package:pi_mote/viewmodels/devices_viewmodel.dart';
 
 class RemotePane extends StatelessWidget {
   final List<RemoteButton> children;
@@ -38,7 +38,7 @@ class RemotePane extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               TextSpan(
-                text: Provider.of<DevicesViewModel>(context).currentDevice() ?? "None",
+                text: Provider.of<PiMoteAppState>(context).currentDevice ?? "None",
                 style: TextStyle(fontSize: 18),
               ),
             ]
