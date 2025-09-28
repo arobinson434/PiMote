@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pi_mote/app_state.dart';
-import 'package:pi_mote/components/remote_button.dart';
+import 'package:pi_mote/components/button_matrix.dart';
 import 'package:pi_mote/storage/remote_data.dart';
 
 class RemotePane extends StatelessWidget {
@@ -25,14 +25,7 @@ class RemotePane extends StatelessWidget {
           ),
           Expanded(
             child: Center(
-              //child: ButtonMatrix(remote?.buttons)
-              child: null
-              //child: Text("Remote: ${remote?.name ?? 'Not Selected'}")
-              //child: Row(
-              //  mainAxisAlignment: MainAxisAlignment.center,
-              //  spacing: 10,
-              //  children: children, // <-- Parent's buttons
-              //)
+              child: remote != null ? ButtonMatrix(buttons: remote!.buttons) : null
             )
           ),
           Text(
