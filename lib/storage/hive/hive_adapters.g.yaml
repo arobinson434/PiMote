@@ -5,7 +5,7 @@ nextTypeId: 2
 types:
   RemoteData:
     typeId: 0
-    nextIndex: 4
+    nextIndex: 6
     fields:
       name:
         index: 0
@@ -13,11 +13,15 @@ types:
         index: 1
       columns:
         index: 2
+      test_array:
+        index: 4
+      buttons:
+        index: 5
   ButtonData:
     typeId: 1
-    nextIndex: 2
+    nextIndex: 6
     fields:
       icon_index:
         index: 0
-      valid:
-        index: 1
+      command:
+        index: 5

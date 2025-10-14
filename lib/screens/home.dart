@@ -20,7 +20,7 @@ class PiMoteHomePage extends StatelessWidget {
         ),
       ),
 
-      body: RemotePane(remote: Provider.of<PiMoteAppState>(context).currentRemote),
+      body: RemotePane(),
 
       floatingActionButton: Row( 
         mainAxisAlignment: MainAxisAlignment.end,

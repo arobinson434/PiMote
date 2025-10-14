@@ -26,7 +26,7 @@ class ButtonMatrix extends StatelessWidget {
             children: List.generate(
               cols,
               (col_index) {
-                return RemoteButton( data: buttons[row_index][col_index] );
+                return RemoteButton( button: buttons[row_index][col_index] );
               }
             )
           );
