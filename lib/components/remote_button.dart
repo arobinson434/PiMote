@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pi_mote/app_state.dart';
+import 'package:pi_mote/components/available_icons.dart';
 import 'package:pi_mote/screens/button_edit.dart';
 import 'package:pi_mote/storage/button_data.dart';
 
@@ -19,35 +20,31 @@ class RemoteButton extends StatelessWidget {
       return FilledButton(
         onPressed: () {
           /* TODO: trigger command send*/ 
-          button.icon_index++;
-          Provider.of<PiMoteAppState>(context, listen: false).currentRemote!.save();
+          print("TODO: Send command");
         },
-        child: Text("${button.icon_index}"),
+        child: AvailableIcons.getIcon(button.icon_index),
         style: FilledButton.styleFrom(fixedSize: Size(80,40))
       );
     } else if ( button.isValid && isLearning ) {
       return FilledButton.tonal( 
         onPressed: () {
-          /* TODO: launch editor*/ 
-          button.icon_index--;
-          Provider.of<PiMoteAppState>(context, listen: false).currentRemote!.save();
+          launchButtonEditor(context, button);
         },
-        child: Text("${button.icon_index}"),
+        child: AvailableIcons.getIcon(button.icon_index),
         style: FilledButton.styleFrom(fixedSize: Size(80,40))
       );
     } else if ( !button.isValid && !isLearning ) {
       return FilledButton(
         onPressed: null,
-        child: Icon(null),//Text(" ")
+        child: AvailableIcons.getIcon(button.icon_index),
         style: FilledButton.styleFrom(fixedSize: Size(80,40))
       );
     } else { // !button.isValid && isLearning
       return OutlinedButton(
         onPressed: () {
-          button.icon_index++;
-          Provider.of<PiMoteAppState>(context, listen: false).currentRemote!.save();
+          launchButtonEditor(context, button);
         },
-        child: Text("${button.icon_index}"),
+        child: AvailableIcons.getIcon(button.icon_index),
         style: OutlinedButton.styleFrom(fixedSize: Size(80,40))
       );
     }

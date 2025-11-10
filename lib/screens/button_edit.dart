@@ -1,77 +1,97 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:android_multicast_lock/android_multicast_lock.dart';
 
-import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
+import 'package:pi_mote/app_state.dart';
+import 'package:pi_mote/components/available_icons.dart';
+import 'package:pi_mote/screens/icon_selector.dart';
+import 'package:pi_mote/storage/button_data.dart';
 
-Future<void> launchButtonEditor(BuildContext context, String button_name) {
+Future<void> launchButtonEditor(BuildContext context, ButtonData button) {
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
-      return _ButtonEditor(name: button_name);
+      return _ButtonEditor(button: button);
     }
   );
 }
 
-class _ButtonEditor extends StatelessWidget {
-  final String name;
-  const _ButtonEditor({super.key, required String this.name});
+class _ButtonEditor extends StatefulWidget {
+  final ButtonData button;
+
+  const _ButtonEditor({super.key, required this.button});
+
+  @override
+  State<_ButtonEditor> createState() => _ButtonEditorState(button: button);
+}
+
+class _ButtonEditorState extends State<_ButtonEditor> {
+  final ButtonData button;
+  int              icon_index;
+  CommandDeltas    command;
+
+  _ButtonEditorState({required this.button}):
+    icon_index=button.icon_index,
+    command=button.command
+  {}
+
+  bool changesPending() {
+    if( icon_index != button.icon_index ||
+        command    != button.command )
+      return true;
+    return false;
+  }
+
+  void iconSelection(BuildContext context) async {
+    int new_icon_index = await launchIconSelector(context) ?? 0;
+
+    if( new_icon_index != icon_index )
+      setState( (){ icon_index = new_icon_index; } );
+  }
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<CmdMgrViewModel>(context, listen: false).listenForCommand();
-
     return AlertDialog(
-      title: Text("Edit: " + name),
+      title: Text("Button Editor"),
+
       content: Container(
         width: double.maxFinite,
-        child: Consumer<CmdMgrViewModel>(
-          builder: (context, vmodel, child) {
-            return vmodel.listening ?
-              Text("Listening...") :
-              vmodel.pendingCommand == null ?
-                Text("Command not recieved") :
-                Text("Recieved command from: ${vmodel.pendingCommand?.name}");
-          }
-        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          spacing: 10,
+          children: [
+            FilledButton(
+              onPressed: () { iconSelection(context); },
+              child: AvailableIcons.getIcon(icon_index),
+              style: FilledButton.styleFrom(fixedSize: Size(80,40))
+            )
+          ]
+        )
       ),
+
       actions: <Widget>[
-        Consumer<CmdMgrViewModel>(
-          builder: (context, vmodel, child) {
-            return Row (
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton (
-                  child: const Icon(Icons.delete),
-                  onPressed: vmodel.commandKnown(name) ?
-                    () {
-                      vmodel.removeCommand(name);
-                      Navigator.of(context).pop();
-                    } :
-                    null
-                ),
-                TextButton(
-                  child: const Icon(Icons.save),
-                  onPressed: vmodel.pendingCommand != null ?
-                    () {
-                      vmodel.savePendingCommandAs(name);
-                      Navigator.of(context).pop();
-                    } :
-                    null
-                ),
-                TextButton(
-                  child: const Icon(Icons.close),
-                  onPressed: () {
-                    vmodel.stopListening();
-                    Navigator.of(context).pop();
-                  }
-                )
-              ]
-            );
-          }
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+              child: const Icon(Icons.save),
+              onPressed: changesPending() ?
+                () {
+                  button.icon_index = icon_index;
+                  button.command    = command;
+                  Provider.of<PiMoteAppState>(context, listen: false).saveCurrentRemote();
+                  Navigator.of(context).pop();
+                } : null,
+            ),
+            TextButton(
+              child: const Icon(Icons.close),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ]
         ),
-      ],
+      ]
     );
   }
 }

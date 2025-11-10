@@ -36,4 +36,8 @@ class PiMoteAppState extends ChangeNotifier {
     _learning_mode = !_learning_mode;
     notifyListeners();
   }
+
+  void saveCurrentRemote() {
+    currentRemote?.save();
+  }
 }
