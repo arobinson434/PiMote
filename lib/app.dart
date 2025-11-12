@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pi_mote/screens/home.dart';
+import 'package:pi_mote/home.dart';
 
 class PiMoteApp extends StatelessWidget {
   const PiMoteApp({super.key});

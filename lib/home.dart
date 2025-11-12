@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:pi_mote/viewmodels/devices_viewmodel.dart';
-import 'package:pi_mote/viewmodels/cmdmgr_viewmodel.dart';
-import 'package:pi_mote/screens/scan.dart';
+import 'package:pi_mote/app_state.dart';
+import 'package:pi_mote/dialogs/device_scan.dart';
 import 'package:pi_mote/components/remote_button.dart';
 import 'package:pi_mote/components/remote_pane.dart';
+import 'package:pi_mote/components/remote_drawer.dart';
 
 class PiMoteHomePage extends StatelessWidget {
   const PiMoteHomePage({super.key});
@@ -20,20 +20,7 @@ class PiMoteHomePage extends StatelessWidget {
         ),
       ),
 
-      body: RemotePane( children: [
-        RemoteButton(
-          name: "Power",
-          child: Icon(Icons.power_settings_new),
-        ),
-        RemoteButton(
-          name: "Plus",
-          child: Icon(Icons.add),
-        ),
-        RemoteButton(
-          name: "Minus",
-          child: Icon(Icons.remove),
-        ),
-      ]),
+      body: RemotePane(),
 
       floatingActionButton: Row( 
         mainAxisAlignment: MainAxisAlignment.end,
@@ -41,7 +28,7 @@ class PiMoteHomePage extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
-              Provider.of<CmdMgrViewModel>(context, listen: false).toggleLearningEnabled();
+              Provider.of<PiMoteAppState>(context, listen: false).toggleLearningMode();
             },
             tooltip: 'Edit',
             child: const Icon(Icons.edit),
@@ -54,6 +41,7 @@ class PiMoteHomePage extends StatelessWidget {
         ],
       ),
 
+      drawer: RemoteDrawer(),
     );
   }
 }
