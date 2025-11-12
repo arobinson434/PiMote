@@ -20,26 +20,20 @@ class RemoteDataAdapter extends TypeAdapter<RemoteData> {
       fields[0] as String,
       (fields[1] as num).toInt(),
       (fields[2] as num).toInt(),
-    )
-      ..test_array =
-          (fields[4] as List).map((e) => (e as List).cast<int>()).toList()
-      ..buttons = (fields[5] as List)
-          .map((e) => (e as List).cast<ButtonData>())
-          .toList();
+    )..buttons =
+        (fields[5] as List).map((e) => (e as List).cast<ButtonData>()).toList();
   }
 
   @override
   void write(BinaryWriter writer, RemoteData obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
       ..write(obj.rows)
       ..writeByte(2)
       ..write(obj.columns)
-      ..writeByte(4)
-      ..write(obj.test_array)
       ..writeByte(5)
       ..write(obj.buttons);
   }

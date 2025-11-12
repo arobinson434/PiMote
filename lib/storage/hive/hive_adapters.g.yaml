@@ -13,8 +13,6 @@ types:
         index: 1
       columns:
         index: 2
-      test_array:
-        index: 4
       buttons:
         index: 5
   ButtonData:
