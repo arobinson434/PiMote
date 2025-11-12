@@ -88,6 +88,12 @@ class _ButtonEditorState extends State<_ButtonEditor> {
                   (button.isValid) ?
                     Text("Stored Command") :
                     Text("No Command"),
+              ]
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 10,
+              children: [
                 TextButton(
                   child: const Icon(Icons.wifi_find),
                   onPressed: () { commandListening(context); },

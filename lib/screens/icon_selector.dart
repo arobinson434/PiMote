@@ -20,7 +20,7 @@ class _IconSelector extends StatelessWidget {
       content: SizedBox(
         width: double.maxFinite,
         child: GridView.count(
-          crossAxisCount: 4,
+          crossAxisCount: 3,
           children: List<Widget>.generate(AvailableIcons.icons.length, (int i) {
             return UnconstrainedBox(
               child: FilledButton(
