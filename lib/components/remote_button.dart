@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:pi_mote/app_state.dart';
 import 'package:pi_mote/comms/command_sender.dart';
 import 'package:pi_mote/components/available_icons.dart';
-import 'package:pi_mote/screens/button_edit.dart';
+import 'package:pi_mote/dialogs/button_edit.dart';
 import 'package:pi_mote/storage/button_data.dart';
 
 class RemoteButton extends StatelessWidget {

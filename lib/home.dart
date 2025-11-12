@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pi_mote/app_state.dart';
-import 'package:pi_mote/screens/scan.dart';
+import 'package:pi_mote/dialogs/device_scan.dart';
 import 'package:pi_mote/components/remote_button.dart';
 import 'package:pi_mote/components/remote_pane.dart';
 import 'package:pi_mote/components/remote_drawer.dart';

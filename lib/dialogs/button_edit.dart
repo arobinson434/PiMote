@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import 'package:pi_mote/app_state.dart';
 import 'package:pi_mote/components/available_icons.dart';
-import 'package:pi_mote/screens/icon_selector.dart';
-import 'package:pi_mote/screens/new_command.dart';
+import 'package:pi_mote/dialogs/icon_selector.dart';
+import 'package:pi_mote/dialogs/new_command.dart';
 import 'package:pi_mote/storage/button_data.dart';
 
 Future<void> launchButtonEditor(BuildContext context, ButtonData button) {
