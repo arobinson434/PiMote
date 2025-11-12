@@ -27,7 +27,7 @@ class _CommandListenerState extends State<_CommandListener> {
   @override
   void initState() {
     super.initState();
-    _receiver.init().then(beginListening);
+    _receiver.init().then(beginListening); //TODO: clean this up
   }
 
   @override
