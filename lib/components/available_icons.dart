@@ -30,6 +30,9 @@ class AvailableIcons {
     Icon(Icons.input),
     Icon(Icons.menu),
     Icon(Icons.close),
+    Icon(Icons.volume_off),
+    Text("VOL"),
+    Text("CH"),
   ];
 
   static Widget getIcon(int index) {

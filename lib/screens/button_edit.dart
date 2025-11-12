@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:pi_mote/app_state.dart';
 import 'package:pi_mote/components/available_icons.dart';
 import 'package:pi_mote/screens/icon_selector.dart';
+import 'package:pi_mote/screens/new_command.dart';
 import 'package:pi_mote/storage/button_data.dart';
 
 Future<void> launchButtonEditor(BuildContext context, ButtonData button) {
@@ -32,12 +34,12 @@ class _ButtonEditorState extends State<_ButtonEditor> {
 
   _ButtonEditorState({required this.button}):
     icon_index=button.icon_index,
-    command=button.command
+    command=List.from(button.command)
   {}
 
   bool changesPending() {
     if( icon_index != button.icon_index ||
-        command    != button.command )
+        !ListEquality().equals(command, button.command) )
       return true;
     return false;
   }
@@ -49,10 +51,21 @@ class _ButtonEditorState extends State<_ButtonEditor> {
       setState( (){ icon_index = new_icon_index; } );
   }
 
+  void commandListening(BuildContext context) async {
+    CommandDeltas new_command = await launchCommandListener(context) ?? [];
+
+    if( new_command != command )
+      setState( (){ command = new_command; } );
+  }
+
+  void clearCommand() {
+    setState( (){ command.clear(); } );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Button Editor"),
+      title: Text("Edit Button"),
 
       content: Container(
         width: double.maxFinite,
@@ -64,6 +77,28 @@ class _ButtonEditorState extends State<_ButtonEditor> {
               onPressed: () { iconSelection(context); },
               child: AvailableIcons.getIcon(icon_index),
               style: FilledButton.styleFrom(fixedSize: Size(80,40))
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 10,
+              children: [
+                Text("Status: "),
+                (!ListEquality().equals(command, button.command)) ?
+                  Text("Pending Change") :
+                  (button.isValid) ?
+                    Text("Stored Command") :
+                    Text("No Command"),
+                TextButton(
+                  child: const Icon(Icons.wifi_find),
+                  onPressed: () { commandListening(context); },
+                ),
+                TextButton(
+                  child: const Icon(Icons.delete),
+                  onPressed: (command.length != 0) ?
+                    clearCommand :
+                    null
+                )
+              ]
             )
           ]
         )

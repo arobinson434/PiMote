@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pi_mote/components/remote_button.dart';
 import 'package:pi_mote/storage/remote_data.dart';
 
+// TODO: Look into refactoring this to use a GridView
 class ButtonMatrix extends StatelessWidget {
   final ButtonArray buttons;
 
