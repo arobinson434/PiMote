@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import 'package:pi_mote/app_state.dart';
 import 'package:pi_mote/components/button_matrix.dart';
-import 'package:pi_mote/dialogs/delete_remote.dart';
 import 'package:pi_mote/storage/remote_data.dart';
 
 class RemotePane extends StatelessWidget {
@@ -18,37 +17,23 @@ class RemotePane extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Builder(
-            builder: (BuildContext c) {
-              List<Widget> children = [
-                Text(
-                  "Remote: ${remote?.name ?? 'Not Selected'}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12)
-                )
-              ];
-
-              if( remote != null && Provider.of<LearningState>(c).learningMode )
-                children.add(
-                  TextButton(
-                    child: const Icon(Icons.delete),
-                    onPressed: () { launchRemoteDelete(c); },
-                  )
-                );
-
-              return SizedBox(
-                height: 20,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: children,
-                )
-              );
-            }
-          ),
           Expanded(
             child: Center(
               child: remote != null ? ButtonMatrix(buttons: remote!.buttons) : null
             )
           ),
+          Text.rich(TextSpan(
+            children: [
+              TextSpan(
+                text: "Remote: ",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              TextSpan(
+                text: remote?.name ?? "None",
+                style: TextStyle(fontSize: 18),
+              ),
+            ]
+          )),
           Builder(
             builder: (BuildContext c) {
               return Text.rich(TextSpan(

@@ -22,7 +22,7 @@ class _NewRemoteWindow extends StatefulWidget {
 }
 
 class _NewRemoteWindowState extends State<_NewRemoteWindow> {
-  static const int MAX_ROWS = 8;
+  static const int MAX_ROWS = 9;
   static const int MAX_COLS = 4;
 
   String? name_error;
