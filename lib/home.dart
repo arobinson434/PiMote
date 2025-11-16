@@ -26,12 +26,20 @@ class PiMoteHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         spacing: 8,
         children: [
-          FloatingActionButton(
-            onPressed: () {
-              Provider.of<LearningState>(context, listen: false).toggleLearningMode();
-            },
-            tooltip: 'Edit',
-            child: const Icon(Icons.edit),
+          Builder(
+            builder: (BuildContext c) {
+              bool isLearning = Provider.of<LearningState>(context).learningMode;
+
+              return FloatingActionButton(
+                onPressed: () {
+                  Provider.of<LearningState>(context, listen: false).toggleLearningMode();
+                },
+                tooltip: 'Edit',
+                child: const Icon(Icons.edit),
+                foregroundColor: isLearning ? Colors.white  : null,
+                backgroundColor: isLearning ? Colors.indigo : null,
+              );
+            }
           ),
           FloatingActionButton(
             onPressed: () => scanForDevices(context),

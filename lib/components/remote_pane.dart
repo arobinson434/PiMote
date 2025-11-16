@@ -51,14 +51,6 @@ class RemotePane extends StatelessWidget {
           ),
           Builder(
             builder: (BuildContext c) {
-              return Text(
-                Provider.of<LearningState>(c).learningMode ? "Edit Mode Active" : "",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)
-              );
-            }
-          ),
-          Builder(
-            builder: (BuildContext c) {
               return Text.rich(TextSpan(
                 children: [
                   TextSpan(
