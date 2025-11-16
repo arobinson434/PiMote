@@ -29,14 +29,14 @@ class _DeviceEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var app_state = Provider.of<PiMoteAppState>(context);
+    var device_state = Provider.of<DeviceState>(context);
     return Card(
       child: ListTile(
         leading: Radio<String>(
           value: info.name,
-          groupValue: app_state.currentDevice,
+          groupValue: device_state.currentDevice,
           onChanged: (String? value) {
-            app_state.currentDevice = value;
+            device_state.currentDevice = value;
           }
         ),
         title: Text(info.name),

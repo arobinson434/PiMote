@@ -16,7 +16,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => PiMoteAppState() ),
+        ChangeNotifierProvider(create: (context) => RemoteState() ),
+        ChangeNotifierProvider(create: (context) => DeviceState() ),
+        ChangeNotifierProvider(create: (context) => LearningState() ),
       ],
       child: const PiMoteApp(),
     )

@@ -28,7 +28,7 @@ class PiMoteHomePage extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
-              Provider.of<PiMoteAppState>(context, listen: false).toggleLearningMode();
+              Provider.of<LearningState>(context, listen: false).toggleLearningMode();
             },
             tooltip: 'Edit',
             child: const Icon(Icons.edit),

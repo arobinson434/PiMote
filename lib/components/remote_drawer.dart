@@ -37,7 +37,7 @@ class RemoteDrawer extends StatelessWidget {
                         leading: const Icon(Icons.settings_remote),
                         title: Text(box.getAt(index)!.name),
                         onTap: () {
-                          Provider.of<PiMoteAppState>(context, listen: false).currentRemote = box.getAt(index);
+                          Provider.of<RemoteState>(context, listen: false).currentRemote = box.getAt(index);
                         }
                       )
                   )

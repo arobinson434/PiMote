@@ -120,7 +120,7 @@ class _ButtonEditorState extends State<_ButtonEditor> {
                 () {
                   button.icon_index = icon_index;
                   button.command    = command;
-                  Provider.of<PiMoteAppState>(context, listen: false).saveCurrentRemote();
+                  Provider.of<RemoteState>(context, listen: false).saveCurrentRemote();
                   Navigator.of(context).pop();
                 } : null,
             ),
