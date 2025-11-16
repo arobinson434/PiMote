@@ -106,13 +106,17 @@ class _NewRemoteWindowState extends State<_NewRemoteWindow> {
             TextButton(
               child: const Icon(Icons.save),
               onPressed: () {
-                var box = Hive.box<RemoteData>(remotes_box_id);
-                bool exists = box.values.where((remote) => remote.name == name_ctlr.text).isNotEmpty;
-                if ( exists ) {
-                  setState(() { name_error = "Remote: ${name_ctlr.text} exists!"; });
+                if( name_ctlr.text.isEmpty ) {
+                  setState(() { name_error = "Remote name must not be empty!"; });
                 } else {
-                  box.add( RemoteData(name_ctlr.text, row_count, col_count) );
-                  Navigator.of(context).pop();
+                  var box = Hive.box<RemoteData>(remotes_box_id);
+                  bool exists = box.values.where((remote) => remote.name == name_ctlr.text).isNotEmpty;
+                  if ( exists ) {
+                    setState(() { name_error = "Remote: ${name_ctlr.text} exists!"; });
+                  } else {
+                    box.add( RemoteData(name_ctlr.text, row_count, col_count) );
+                    Navigator.of(context).pop();
+                  }
                 }
               }
             ),
