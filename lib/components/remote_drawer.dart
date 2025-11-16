@@ -38,6 +38,7 @@ class RemoteDrawer extends StatelessWidget {
                         title: Text(box.getAt(index)!.name),
                         onTap: () {
                           Provider.of<RemoteState>(context, listen: false).currentRemote = box.getAt(index);
+                          Navigator.of(context).pop();
                         }
                       )
                   )
