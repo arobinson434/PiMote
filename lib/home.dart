@@ -7,12 +7,15 @@ import 'package:pi_mote/dialogs/device_scan.dart';
 import 'package:pi_mote/components/remote_button.dart';
 import 'package:pi_mote/components/remote_pane.dart';
 import 'package:pi_mote/components/remote_drawer.dart';
+import 'package:pi_mote/storage/remote_data.dart';
 
 class PiMoteHomePage extends StatelessWidget {
   const PiMoteHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    RemoteData? remote = Provider.of<RemoteState>(context).currentRemote;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -21,7 +24,7 @@ class PiMoteHomePage extends StatelessWidget {
         ),
       ),
 
-      body: RemotePane(),
+      body: RemotePane(remote: remote),
 
       floatingActionButton: Builder(
         builder: (BuildContext c) {
@@ -32,9 +35,11 @@ class PiMoteHomePage extends StatelessWidget {
           if( isLearning )
             children.add(
               FloatingActionButton(
-                onPressed: () { launchRemoteDelete(c); },
+                onPressed: (remote != null) ?
+                  () { launchRemoteDelete(c); } : null,
                 tooltip: 'Delete',
                 child: const Icon(Icons.delete),
+                backgroundColor: (remote == null) ? Colors.grey : null,
               )
             );
 

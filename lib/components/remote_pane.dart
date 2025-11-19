@@ -6,12 +6,12 @@ import 'package:pi_mote/components/button_matrix.dart';
 import 'package:pi_mote/storage/remote_data.dart';
 
 class RemotePane extends StatelessWidget {
-  RemotePane({super.key});
+  final RemoteData? remote;
+
+  RemotePane({super.key, required this.remote});
 
   @override
   Widget build(BuildContext context) {
-    RemoteData? remote = Provider.of<RemoteState>(context).currentRemote;
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
