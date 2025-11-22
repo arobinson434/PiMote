@@ -19,6 +19,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => RemoteState() ),
         ChangeNotifierProvider(create: (context) => DeviceState() ),
         ChangeNotifierProvider(create: (context) => LearningState() ),
+        ChangeNotifierProvider(create: (context) => AppearanceState() ),
       ],
       child: const PiMoteApp(),
     )

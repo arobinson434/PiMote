@@ -14,7 +14,8 @@ class PiMoteHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RemoteData? remote = Provider.of<RemoteState>(context).currentRemote;
+    RemoteData?     remote     = Provider.of<RemoteState>(context).currentRemote;
+    AppearanceState appearance = Provider.of<AppearanceState>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -22,6 +23,13 @@ class PiMoteHomePage extends StatelessWidget {
         title: Center(
           child: Image.asset('assets/heading_logo.png', height: 90)
         ),
+        actions: [
+          IconButton(
+            icon: Icon(appearance.darkMode ? Icons.light_mode : Icons.dark_mode),
+            padding: EdgeInsetsGeometry.all(10),
+            onPressed: appearance.toggleDarkMode
+          )
+        ],
       ),
 
       body: RemotePane(remote: remote),

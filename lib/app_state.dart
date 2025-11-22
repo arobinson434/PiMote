@@ -113,3 +113,47 @@ class LearningState extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class AppearanceState extends ChangeNotifier {
+  bool _dark_mode = false;
+
+  bool get darkMode => _dark_mode;
+
+  set darkMode(bool value) {
+    if ( _dark_mode != value ) {
+      _dark_mode = value;
+      _storeToCache();
+      notifyListeners();
+    }
+  }
+
+  void toggleDarkMode() {
+    _dark_mode = !_dark_mode;
+    _storeToCache();
+    notifyListeners();
+  }
+
+  void _storeToCache() async {
+    final SharedPreferencesWithCache cache =
+      await SharedPreferencesWithCache.create(
+        cacheOptions: const SharedPreferencesWithCacheOptions()
+      );
+
+    cache.setBool('dark_mode', _dark_mode);
+  }
+
+  void _loadFromCache() async {
+    final SharedPreferencesWithCache cache =
+      await SharedPreferencesWithCache.create(
+        cacheOptions: const SharedPreferencesWithCacheOptions()
+      );
+
+    _dark_mode = cache.getBool('dark_mode') ?? false;
+
+    notifyListeners();
+  }
+
+  AppearanceState() {
+    _loadFromCache();
+  }
+}
