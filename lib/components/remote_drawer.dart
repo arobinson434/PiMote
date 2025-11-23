@@ -16,7 +16,7 @@ class RemoteDrawer extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: 100,
+            height: 150,
             width: double.maxFinite,
             child: DrawerHeader(
               decoration: BoxDecoration(color: Theme.of(context).colorScheme.inversePrimary),
